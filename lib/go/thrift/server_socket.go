@@ -47,6 +47,14 @@ func NewTServerSocketTimeout(listenAddr string, clientTimeout time.Duration) (*T
 	return &TServerSocket{addr: addr, clientTimeout: clientTimeout}, nil
 }
 
+func NewTServerSocketFromAddrTimeout(addr net.Addr, clientTimeout time.Duration) *TServerSocket {
+	return &TServerSocket{addr: addr, clientTimeout: clientTimeout}
+}
+
+func NewTServerSocketFromListenerTimeout(listener net.Listener, clientTimeout time.Duration) *TServerSocket {
+	return &TServerSocket{listener: listener, addr: listener.Addr(), clientTimeout: clientTimeout}
+}
+
 func (p *TServerSocket) Listen() error {
 	if p.IsListening() {
 		return nil
